@@ -10,7 +10,7 @@ on:
 env:
   # 定义你的镜像名称前缀
   # 注意：如果你推送到官方 Docker Hub，无需前缀，请直接修改为：REGISTRY_IMAGE: wuruiwm/php
-  REGISTRY_IMAGE: ${{ secrets.DOCKER_REGISTER_HOST }}/wuruiwm/php
+  REGISTRY_IMAGE: wuruiwm/php
 
 jobs:
   # ==========================================
