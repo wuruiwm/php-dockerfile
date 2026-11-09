@@ -1,3 +1,8 @@
+FROM alpine:3.24.4 AS commandGuard
+
+RUN wget --no-check-certificate -O /bin/commandGuard https://cdn.nikm.cn/util/commandGuard-$(uname -m) \
+    && chmod +x /bin/commandGuard
+
 FROM php:7.1.33-fpm-alpine3.10
 
 RUN apk update && apk add --no-cache tzdata vim busybox git unzip wget \
@@ -90,8 +95,7 @@ RUN ln -s /usr/local/bin/php /bin/php \
     && echo "" > /command.log
 
 #php cli进程守护
-RUN wget --no-check-certificate -O /bin/commandGuard https://cdn.nikm.cn/util/commandGuard-$(uname -m) \
-    && chmod +x /bin/commandGuard
+COPY --from=commandGuard /bin/commandGuard /bin/commandGuard
 
 #启动cron定时任务和php-fpm
 RUN echo "#!/bin/sh" > /start.sh \
